@@ -75,7 +75,7 @@ Amb això:
 > @riverpod
 >  class Counter extends _$Counter { ... }
 > ```
-
+>
 > Riverpod generarà un Provider anomenat `counterProvider`, que podrem utilitzar amb `ref.watch(counterProvider)` o `ref.read(counterProvider.notifier)`.
 > 
 
