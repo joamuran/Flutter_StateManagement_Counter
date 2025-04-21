@@ -6,18 +6,18 @@ Ara bé, Riverpod ens proporciona una alternativa molt més senzilla i elegant b
 
 Aquest sistema es basa en les **Riverpod annotations** i en l'ordre `build_runner`, que genera automàticament els *Providers* i altres elements associats.
 
-!!!note "Sobre la generació de codi"
-    En Dart, existeixen llibreries que poden **generar automàticament codi font** a partir d'anotacions especials. Aquest procés s'anomena **generació de codi**.
-
-    Per tal que aquest codi es genere correctament, cal:
-
-    - Incorporar les anotacions pertinents (en el nostre cas `@riverpod`)
-    - Afegir una línia `part 'nom_del_fitxer.g.dart';` al nostre arxiu, indicant on s'ha de generar el codi.
-    - Executar l'ordre `flutter pub run build_runner build`, que analitza el projecte i crea automàticament els fitxers `.g.dart`.
-
-    El fitxer `.g.dart` generat **no s'ha de modificar manualment**, ja que s'actualitza cada vegada que tornem a executar `build_runner`.
-
-    Aquesta tècnica és molt útil per evitar haver d'escriure codi repetitiu, i s'utilitza en moltes llibreries avançades de Flutter, com la llibrería Floor per a les bases de dades SQLite.
+> [!NOTE] 
+> **Sobre la generació de codi**
+> 
+> En Dart, existeixen llibreries que poden **generar automàticament codi font** a partir d'anotacions especials. Aquest procés s'anomena **generació de codi**.
+>
+> Per tal que aquest codi es genere correctament, cal:
+> 
+> - Incorporar les anotacions pertinents (en el nostre cas `@riverpod`)
+> - Afegir una línia `part 'nom_del_fitxer.g.dart';` al nostre arxiu, indicant on s'ha de generar el codi.
+> - Executar l'ordre `flutter pub run build_runner build`, que analitza el projecte i crea automàticament els fitxers `.g.dart`.
+> El fitxer `.g.dart` generat **no s'ha de modificar manualment**, ja que s'actualitza cada vegada que tornem a executar `build_runner`.
+> Aquesta tècnica és molt útil per evitar haver d'escriure codi repetitiu, i s'utilitza en moltes llibreries avançades de Flutter, com la llibrería Floor per a les bases de dades SQLite.
 
 ### Instal·lant les anotacions de Riverpod
 
@@ -60,21 +60,24 @@ Amb això:
 - La funció `build()` proporciona el valor inicial, igual que abans.
 - Hem declarat mètodes per modificar l'estat igual que a l'exemple 3, però ara amb molta menys cerimònia.
 
-!!!tip "Què fa exactament `@riverpod`?"
-    Quan utilitzem l’anotació `@riverpod`, estem indicant a Riverpod que:
+> [!TIP]
+> **Què fa exactament `@riverpod`?**
+> 
+> Quan utilitzem l’anotació `@riverpod`, estem indicant a Riverpod que:
+> 
+> - Volem **crear un Provider automàticament** a partir de la classe o funció anotada.
+> - El nom del Provider es generarà automàticament a partir del nom de la classe o funció.
+> - El fitxer `.g.dart` contindrà el codi necessari per registrar i gestionar aquest Provider.
+> 
+> Per exemple, si tenim:
+> 
+> ```dart
+> @riverpod
+>  class Counter extends _$Counter { ... }
+> ```
 
-    - Volem **crear un Provider automàticament** a partir de la classe o funció anotada.
-    - El nom del Provider es generarà automàticament a partir del nom de la classe o funció.
-    - El fitxer `.g.dart` contindrà el codi necessari per registrar i gestionar aquest Provider.
-
-    Per exemple, si tenim:
-
-    ```dart
-    @riverpod
-    class Counter extends _$Counter { ... }
-    ```
-
-    Riverpod generarà un Provider anomenat `counterProvider`, que podrem utilitzar amb `ref.watch(counterProvider)` o `ref.read(counterProvider.notifier)`.
+> Riverpod generarà un Provider anomenat `counterProvider`, que podrem utilitzar amb `ref.watch(counterProvider)` o `ref.read(counterProvider.notifier)`.
+> 
 
 ### Generant el codi
 
@@ -87,22 +90,25 @@ dart run build_runner build
 Això crearà automàticament el provider `counterProvider` a partir de la nostra classe `Counter` (aquest es guardarà a la carpeta `build/generated`, pel que no el veurem directament).
 
 
-!!!tip "El mode watch"
-   Podem executar el *build runner* en mode watch amb:
+> [!TIP]
+> **El mode watch**
+> 
+> Podem executar el *build runner* en mode watch amb:
+> 
+> ```
+> dart run build_runner watch --delete-conflicting-outputs
+> ```
+> Amb això aconseguim que cada vegada que es produisca un canvi en les classes anotades, es regenere automàticament el fitxer `.g.dart`.
+> 
 
-   ```
-   dart run build_runner watch --delete-conflicting-outputs
-   ```
 
-   Amb això aconseguim que cada vegada que es produisca un canvi en les classes anotades, es regenere automàticament el fitxer `.g.dart`.
-
-
-!!!tip "Reiniciant l'Analysis Server"
-   Sovint, quan treballem amb fitxers generats es produeix una situació de dessincronització de l'entorn. Tot i que les aplicacions funcionen correctament, VSCode no detecta els fitxers `.g.dart` generats i marca com a errònies determinades referències a classes que sí existeixen.
-
-   Per tal de resoldre aquest problema de sincronització, ens hem d'assegurar de generar primer que res els fitxers `.g.part` amb el `build runner`, o millor executant-lo en mode `watch`. Després, podem reiniciar l'anàlisi del projecte, accedint a la paleta d'ordres ( `Ctrl` + `Shift` + `P`), i llançant l'ordre `Dart: Restart Analysis Server`.
-
-   Amb això els errors deurien desaparéixer. En cas de no fer-ho, podriem intentar reiniciar completament VSCode.
+> [!TIP] 
+> **Reiniciant l'Analysis Server**
+> 
+> Sovint, quan treballem amb fitxers generats es produeix una situació de dessincronització de l'entorn. Tot i que les aplicacions funcionen correctament, VSCode no detecta els fitxers `.g.dart` generats i marca com a errònies determinades referències a classes que sí existeixen.
+> Per tal de resoldre aquest problema de sincronització, ens hem d'assegurar de generar primer que res els fitxers `.g.part` amb el `build runner`, o millor executant-lo en mode `watch`. Després, podem reiniciar l'anàlisi del projecte, accedint a la paleta d'ordres ( `Ctrl` + `Shift` + `P`), i llançant l'ordre `Dart: Restart Analysis Server`.
+> Amb això els errors deurien desaparéixer. En cas de no fer-ho, podriem intentar reiniciar completament VSCode.
+> 
 
 ### Utilitzant-lo en un widget
 

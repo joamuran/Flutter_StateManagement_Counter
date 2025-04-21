@@ -54,6 +54,7 @@ Aleshores, el que hem de fer és fer ús de `ConsumerWidget` en lloc d'`Stateles
 
 > [!NOTE]
 > **I si és un StatefulWidget?**
+> 
 > En cas de voler utilitzar algun Provider en un `StatefulWidget`+`State`, farem ús de les classes `ConsumerStatefulWidget` i `ConsumerState`. En aquest cas, `ref` serà una propietat del propi estat.
 >
 
