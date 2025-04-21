@@ -52,7 +52,8 @@ Per tal de consumir Providers en un widget, la llibreria *Provider* ens proporci
 
 Aleshores, el que hem de fer és fer ús de `ConsumerWidget` en lloc d'`StatelessWidget`.
 
-> [!NOTE] "I si és un StatefulWidget?"
+> [!NOTE]
+> **I si és un StatefulWidget?**
 > En cas de voler utilitzar algun Provider en un `StatefulWidget`+`State`, farem ús de les classes `ConsumerStatefulWidget` i `ConsumerState`. En aquest cas, `ref` serà una propietat del propi estat.
 >
 
@@ -116,7 +117,9 @@ Aquest objecte `ref` ens proporciona diversos mètodes. Entre aquests ja hem vis
 
 El mètode que ens interessa ara és `read`, que obté el valor de l'estat, sense *enganxar-se* a escoltar-lo.
 
-> [tip} "Els mètodes watch i read"
+> [!TIP] 
+> **Els mètodes watch i read**
+> 
 > - `ref.watch(...)` serveix per **observar** els canvis de l’estat, i reconstruir automàticament el widget quan aquest estat canvia.
 > - `ref.read(...)` s’utilitza quan **només volem accedir o modificar** el valor de l’estat, però sense escoltar-ne els canvis.
 
