@@ -52,8 +52,9 @@ Per tal de consumir Providers en un widget, la llibreria *Provider* ens proporci
 
 Aleshores, el que hem de fer és fer ús de `ConsumerWidget` en lloc d'`StatelessWidget`.
 
-!!!note "I si és un StatefulWidget?"
-     En cas de voler utilitzar algun Provider en un `StatefulWidget`+`State`, farem ús de les classes `ConsumerStatefulWidget` i `ConsumerState`. En aquest cas, `ref` serà una propietat del propi estat.
+> [!NOTE] "I si és un StatefulWidget?"
+> En cas de voler utilitzar algun Provider en un `StatefulWidget`+`State`, farem ús de les classes `ConsumerStatefulWidget` i `ConsumerState`. En aquest cas, `ref` serà una propietat del propi estat.
+>
 
 El paràmetre `ref`,  de tipus `WidgetRef`, conté diversos mètodes, ja siga pe actualitzar dades o escoltar canvis en les dades del *Provider* quan es produeixen, i reconstruir el giny en conseqüència.
 
@@ -115,9 +116,9 @@ Aquest objecte `ref` ens proporciona diversos mètodes. Entre aquests ja hem vis
 
 El mètode que ens interessa ara és `read`, que obté el valor de l'estat, sense *enganxar-se* a escoltar-lo.
 
-!!!tip "Els mètodes watch i read"
-     - `ref.watch(...)` serveix per **observar** els canvis de l’estat, i reconstruir automàticament el widget quan aquest estat canvia.
-     - `ref.read(...)` s’utilitza quan **només volem accedir o modificar** el valor de l’estat, però sense escoltar-ne els canvis.
+> [tip} "Els mètodes watch i read"
+> - `ref.watch(...)` serveix per **observar** els canvis de l’estat, i reconstruir automàticament el widget quan aquest estat canvia.
+> - `ref.read(...)` s’utilitza quan **només volem accedir o modificar** el valor de l’estat, però sense escoltar-ne els canvis.
 
 Aquuest mètode `read` serà el que utilitzem habitualmen per tal d'accedir a l'estat del Provider, a través de la propietat `notifier` del Provider:
 
